@@ -16,16 +16,16 @@ public class toJSON {
 	public static String nombre;
 	public static String tipo;
 	public static String direccion;
-	public static int codigoPostal;
+	public static String codigoPostal;
 	public static double longitud;
 	public static double latitud;
-	public static double telefono;
+	public static String telefono;
 	public static String email;
 	public static String descripcion;
 	public static String localidad_nombre;
-	public static int localidad_codigo;
+	public static String localidad_codigo;
 	public static String provincia_nombre;
-	public static int provincia_codigo;
+	public static String provincia_codigo;
 	
 	public static Connection con = null;
 	
@@ -99,15 +99,15 @@ String query = "INSERT INTO biblioteca VALUES (nombre, tipo, direccion, codigoPo
 		tipo = "Publica";
 		direccion =  (String) bibliotecaJSON.get("address") ;
 		//codigoPostal = (int) bibliotecaJSON.get("postalcode");
-		codigoPostal = transformInt((String) bibliotecaJSON.get("postalcode"), '.');
+		codigoPostal = transformString((String) bibliotecaJSON.get("postalcode"), '.');
 		//longitud = (double) bibliotecaJSON.get("lonwgs84");
 		longitud = Double.parseDouble(((String) bibliotecaJSON.get("lonwgs84")));
 		//latitud = (double) bibliotecaJSON.get("latwgs84");
 		latitud = Double.parseDouble((String) bibliotecaJSON.get("latwgs84"));
 		//telefono = (int) bibliotecaJSON.get("phone");
 			
-			char[] charSearch = {'-', '.', ' ', '(', ')', 'E', 'e', 'X', 'x', 'T', 't'};
-		telefono = transformDouble((String) bibliotecaJSON.get("phone"), charSearch);
+			//char[] charSearch = {'-', '.', ' ', '(', ')', 'E', 'e', 'X', 'x', 'T', 't', 'L', 'l', 'U', 'u', 'Z', 'z'};
+		telefono = (String) bibliotecaJSON.get("phone");
 		
 		email = (String) bibliotecaJSON.get("email");
 		descripcion = transformString((String) bibliotecaJSON.get("documentDescription"), '-');
@@ -119,7 +119,7 @@ String query = "INSERT INTO biblioteca VALUES (nombre, tipo, direccion, codigoPo
 		localidad_codigo = codigoPostal;
 		provincia_nombre = (String) bibliotecaJSON.get("municipality");
 		//provincia_codigo = (int) bibliotecaJSON.get("postalcode");
-		provincia_codigo = Integer.parseInt(((String) bibliotecaJSON.get("postalcode")).substring(0, 2));
+		provincia_codigo = ((String) bibliotecaJSON.get("postalcode")).substring(0, 2);
 		
 		}
 		catch (Exception ex) { System.out.println(ex);}
@@ -169,6 +169,7 @@ String query = "INSERT INTO biblioteca VALUES (nombre, tipo, direccion, codigoPo
                 {    
                 	if(i == sb.length()-1) {
                 		sb.deleteCharAt(i);
+                		i--;
                 	}
                 	else if(sb.charAt(i-1)== ' ' && sb.charAt(i+1)== ' ') {
                 		sb.deleteCharAt(i); 
@@ -209,6 +210,7 @@ String query = "INSERT INTO biblioteca VALUES (nombre, tipo, direccion, codigoPo
                 {    
                 	if(i == sb.length()-1) {
                 		sb.deleteCharAt(i);
+                		i--;
                 	}
                 	else if(sb.charAt(i-1)== ' ' && sb.charAt(i+1)== ' ') {
                 		sb.deleteCharAt(i); 
