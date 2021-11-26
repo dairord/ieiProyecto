@@ -25,11 +25,11 @@ public class toXML {
 		int PRETTY_PRINT_INDENT_FACTOR = 4;
 		String xmlString =  null;    
 		// Convertir Fichero XML -> Fichero Json con eco en la consola
-		String xmlFile = "c:\\datos\\CAT\\biblioteques.xml";
+		String xmlFile = "/home/dairor/eclipse-workspace/EuToJSON/src/biblioteques.xml";
 		xmlString = new String(Files.readAllBytes(Paths.get(xmlFile)));
 		JSONObject xmlJSONObj = null;
 		xmlJSONObj = XML.toJSONObject(xmlString);
-		String jsonFile = "c:\\datos\\CAT\\biblioteques.json";
+		String jsonFile = "/home/dairor/eclipse-workspace/EuToJSON/src/biblioteques.json";
 		String jsonPrettyPrintString = null;
 		try (FileWriter fileWriter = new FileWriter(jsonFile)){
 		fileWriter.write(xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR));
