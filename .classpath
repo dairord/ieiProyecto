@@ -6,6 +6,16 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/jackson-databind-2.13.0-rc1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/jackson-core-2.13.0-rc2.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/mysql-connector-java-8.0.27/mysql-connector-java-8.0.27.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -21,22 +31,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/jackson-annotations-2.13.0-rc1.jar">
+	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/jackson-core-asl-1.9.13.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/jackson-core-2.13.0-rc1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/jackson-databind-2.13.0-rc1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/jackson-dataformat-csv-2.9.0.jar">
+	<classpathentry kind="lib" path="/home/dairor/eclipse-workspace/EuToJSON/jackson-mapper-asl-1.9.13.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
