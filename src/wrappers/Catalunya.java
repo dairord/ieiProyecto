@@ -99,7 +99,7 @@ String query = "INSERT INTO biblioteca VALUES (nombre, tipo, direccion, codigoPo
 		
 		int k = 0;
 		try {
-			//System.out.println("1");
+			
 			k++;
 		nombre = StringCutter.transformString( bibliotecaJSON.get("nom").toString(), '.');
 		nombre = StringCutter.transformString(nombre, "'");
