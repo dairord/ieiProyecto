@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 public class Euskadi {
 	
+	public static int j = 1;
 	public static String nombre;
 	public static String tipo;
 	public static String direccion;
@@ -96,11 +97,11 @@ public class Euskadi {
 		}
 		catch (Exception ex) { System.out.println(ex);}
 		
-		System.out.println(nombre +tipo +direccion +codigoPostal +longitud +latitud +telefono +email +descripcion
+		System.out.println(j +nombre +tipo +direccion +codigoPostal +longitud +latitud +telefono +email +descripcion
 				+localidad_nombre +localidad_codigo +provincia_nombre +provincia_codigo);
+		j++;
 		
-		
-		String query = "INSERT INTO biblioteca (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, descripcion, localidad_nombre, localidad_codigo, provincia_nombre, provincia_codigo)"
+		String query = "INSERT INTO bibliotecas (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, descripcion, localidad_nombre, localidad_codigo, provincia_nombre, provincia_codigo)"
 				+ " VALUES ('"+nombre +"', '" +tipo +"', '" +direccion +"', '" +codigoPostal +"', '" +longitud +"', '" +latitud +"', '" +telefono +"', '" +email +"', '" +descripcion +"', '"
 				+localidad_nombre +"', '" +localidad_codigo +"', '" +provincia_nombre +"', '" +provincia_codigo +"')";
 		

@@ -13,6 +13,7 @@ import conexiones.*;
 
 public class Valencia {
 
+	public static int j = 1;
 	public static String nombre;
 	public static String tipo;
 	public static String direccion;
@@ -48,35 +49,15 @@ public class Valencia {
 
 		JSONParser jsonParser = new JSONParser();
 
-		/*
-		 * Statement st = con.createStatement();
-		 * 
-		 * String query =
-		 * "INSERT INTO biblioteca VALUES (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, "
-		 * +
-		 * "descripcion, localidad_nombre, localidad_codigo, provincia_nombre, provincia_codigo"
-		 * ;
-		 */
-
-// note that i'm leaving "date_created" out of this insert statement
-
-		// st.executeQuery(query);
-
 		try {
 			Object obj = jsonParser.parse(new FileReader("/home/dairor/eclipse-workspace/EuToJSON/src/JSON/CV.json"));
 
-			// JSONObject jsonObject = (JSONObject) obj;
-
-			// A JSON array. JSONObject supports java.util.List interface.
 			JSONArray listaBibliotecas = (JSONArray) obj;
 			
-			System.out.println(listaBibliotecas.size());
-
 			listaBibliotecas.forEach(biblioteca -> {
-				System.out.println("nany?");
+				
 				try {
 					
-					System.out.println("wat");
 					uploadBiblioteca((JSONObject) biblioteca);
 
 				} catch (SQLException e) {
@@ -93,73 +74,55 @@ public class Valencia {
 	public static void uploadBiblioteca(JSONObject bibliotecaJSON) throws SQLException {
 
 		try {
-			nombre = bibliotecaJSON.get("NOM_PROVINCIA").toString();
+			nombre = bibliotecaJSON.get("NOMBRE").toString();
 			
-			if (bibliotecaJSON.get("COD_CARACTER").toString().contains("PR")) { tipo = "PRIVADA";}
-			else { tipo = "PÚBLICA";}
+			if (bibliotecaJSON.get("COD_CARACTER").toString().contains("PR")) { tipo = "Privada";}
+			else { tipo = "Pública";}
 			
 			direccion = (String) bibliotecaJSON.get("DIRECCION");
-			// codigoPostal = (int) bibliotecaJSON.get("postalcode");
 			
 			if (bibliotecaJSON.get("CP").toString().length() == 4) { codigoPostal = "0" +bibliotecaJSON.get("CP").toString();}
 			else { codigoPostal = bibliotecaJSON.get("CP").toString();}
 			
-			String[] location = GeocodeLocation.getLocation(direccion +", " +nombre);
+			String[] location = GeocodeLocation.getLocation(direccion +", " +bibliotecaJSON.get("NOM_PROVINCIA").toString());
+			
 			try {
 			 longitud = Double.parseDouble(location[0]);
-			// longitud = Double.parseDouble(((String) bibliotecaJSON.get("lonwgs84")));
 			 latitud = Double.parseDouble(location[1]);
 			}catch(Exception ex) {longitud = 0; latitud = 0;}
-			// latitud = Double.parseDouble((String) bibliotecaJSON.get("latwgs84"));
-			// telefono = (int) bibliotecaJSON.get("phone");
-
+			
 			char[] charSearch = { '-', '.', ' ', '(', ')', 'E', 'e', 'X', 'x', 'T', 't', 'L', 'l', 'U', 'u', 'Z', 'z', 'F', 'f', 'A', 'a', 'Y', 'y', 'O', 'o' };
 			telefono = StringCutter.transformString(bibliotecaJSON.get("TELEFONO").toString(), charSearch);
-
 			email = (String) bibliotecaJSON.get("EMAIL");
-			 descripcion = bibliotecaJSON.get("TIPO").toString();
-			// bibliotecaJSON.get("documentDescription"), '-');
-
+			descripcion = bibliotecaJSON.get("TIPO").toString();
 			localidad_nombre = bibliotecaJSON.get("NOM_MUNICIPIO").toString();
 
-			// localidad_codigo = (int) bibliotecaJSON.get("placename");
-			//localidad_codigo = bibliotecaJSON.get("COD_MUNICIPIO").toString();
 			
-			if (bibliotecaJSON.get("COD_MUNICIPIO").toString().length() == 2) { localidad_codigo = "0" +bibliotecaJSON.get("COD_MUNICIPIO").toString();}
-			else { localidad_codigo = bibliotecaJSON.get("COD_MUNICIPIO").toString(); }
+			
 						
 			provincia_nombre = bibliotecaJSON.get("NOM_PROVINCIA").toString();
-			// provincia_codigo = (int) bibliotecaJSON.get("postalcode");
 			
 			if (bibliotecaJSON.get("COD_PROVINCIA").toString().length() == 1) { provincia_codigo = "0" +bibliotecaJSON.get("COD_PROVINCIA").toString();}
 			else { provincia_codigo = bibliotecaJSON.get("COD_PROVINCIA").toString(); }
-			//provincia_codigo = bibliotecaJSON.get("COD_PROVINCIA").toString();
+			
+			if (bibliotecaJSON.get("COD_MUNICIPIO").toString().length() == 2) { localidad_codigo = provincia_codigo +"0" +bibliotecaJSON.get("COD_MUNICIPIO").toString();}
+			else { localidad_codigo = provincia_codigo +bibliotecaJSON.get("COD_MUNICIPIO").toString(); }
 
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		// char[] charSearch = {'-', '.'};
-		// System.out.println(transformInts(codigoPostal, charSearch));
-
-		// transformString(nombre, charSearch)
-		System.out.println(nombre + tipo + direccion + codigoPostal + longitud + latitud + telefono + email
+		
+		System.out.println(j +nombre + tipo + direccion + codigoPostal + longitud + latitud + telefono + email
 				+ descripcion + localidad_nombre + localidad_codigo + provincia_nombre + provincia_codigo);
 
-		/*
-		 * String query =
-		 * "INSERT INTO biblioteca VALUES (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, "
-		 * +
-		 * "descripcion, localidad_nombre, localidad_codigo, provincia_nombre, provincia_codigo)"
-		 * ;
-		 */
-		String query = "INSERT INTO bibliotecaCSV (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, descripcion, localidad_nombre, localidad_codigo, provincia_nombre, provincia_codigo)"
+		j++;
+		
+		String query = "INSERT INTO bibliotecas (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, descripcion, localidad_nombre, localidad_codigo, provincia_nombre, provincia_codigo)"
 				+ " VALUES ('" + nombre + "', '" + tipo + "', '" + direccion + "', '" + codigoPostal + "', '" + longitud
 				+ "', '" + latitud + "', '" + telefono + "', '" + email + "', '" + descripcion + "', '"
 				+ localidad_nombre + "', '" + localidad_codigo + "', '" + provincia_nombre + "', '" + provincia_codigo
 				+ "')";
 
-		String query2 = "INSERT INTO biblioteca (nombre)" + " VALUES ('" + nombre + "')";
-		String query3 = "INSERT INTO biblioteca (nombre)" + " VALUES ('Prueba')";
 
 		Statement st = con.createStatement();
 

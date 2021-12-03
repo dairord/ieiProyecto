@@ -21,7 +21,7 @@ public class XMLtoJSON {
 		try (FileWriter fileWriter = new FileWriter(jsonFile)){
 		fileWriter.write(xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR));
 		jsonPrettyPrintString= xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
-		System.out.println(jsonPrettyPrintString);
+		//System.out.println(jsonPrettyPrintString);
 		}
 
 	}

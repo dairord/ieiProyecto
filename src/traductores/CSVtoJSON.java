@@ -33,15 +33,6 @@ public class CSVtoJSON {
 	    List<String> realFields = null;
 	    if ( csv.hasNext() ) {
 	    	fieldNames = new ArrayList<>(csv.next());
-	    	/*System.out.println(fieldNames.size());
-	    	realFields = new ArrayList<>();
-	    	String fields = fieldNames.get(0);
-	    	while (fields.length()!= 0) {
-	    		for(int i = 0; i<fields.length();i++) {
-	    			if(fields.charAt(i) == ',')
-	    		}
-	    	}*/
-	    	
 	    }
 	    List<Map<String,String>> list = new ArrayList<>();
 	    while (csv.hasNext()) {
@@ -52,9 +43,7 @@ public class CSVtoJSON {
 	        }
 	        list.add(obj);
 	    }
-	    //JsonFactory factory = objectMapper.getFactory();
 	    ObjectMapper mapper = new ObjectMapper();
-	   // mapper.enable(SerializationFeature.INDENT_OUTPUT);
 	    mapper.writeValue(output, list);
 	}
 	
