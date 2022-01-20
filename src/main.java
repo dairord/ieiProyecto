@@ -1,5 +1,6 @@
 import traductores.*;
 import wrappers.*;
+import selenium.*;
 
 public class main {
 
@@ -14,6 +15,8 @@ public class main {
 		CSVtoJSON.main(args);
 		
 		Valencia.main(args);
+		
+		ForChrome.Chrome();
 
 	}
 
