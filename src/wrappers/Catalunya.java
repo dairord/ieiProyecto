@@ -61,6 +61,7 @@ public class Catalunya {
 			listaBibliotecas.forEach( biblioteca -> {
 				
 				try {
+					System.out.println(biblioteca.toString());
 					uploadBiblioteca((JSONObject)biblioteca);
 					
 				} catch (SQLException e) {
@@ -119,12 +120,30 @@ public class Catalunya {
 		
 		String query = "INSERT INTO bibliotecas (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, descripcion, localidad_nombre, localidad_codigo, provincia_nombre, provincia_codigo)"
 				+ " VALUES ('"+nombre +"', '" +tipo +"', '" +direccion +"', '" +codigoPostal +"', '" +longitud +"', '" +latitud +"', '" +telefono +"', '" +email +"', '" +descripcion +"', '"
-				+localidad_nombre +"', '" +localidad_codigo +"', '" +provincia_nombre +"', '" +provincia_codigo +"')";
+				+localidad_nombre +"', '" +localidad_codigo +"', '" +provincia_codigo +"')";
+		
+		String queryLocalidades = "INSERT INTO localidades (localidad_nombre, localidad_codigo)"
+				+ " VALUES ('"+localidad_nombre +"', '" +localidad_codigo +"')";
+		
+		String queryProvincias = "INSERT INTO provincias (provincia_nombre, provincia_codigo)"
+				+ " VALUES ('" +provincia_nombre +"', '" +provincia_codigo +"')";
 		
 		
 		Statement st = con.createStatement();
+		
 		try {
-		st.executeUpdate(query);
+			st.executeUpdate(queryLocalidades);
+		}catch(Exception ex) {
+			System.out.println(ex);
+		}
+		
+		try {
+			st.executeUpdate(queryProvincias);
+		}catch(Exception ex) {
+			System.out.println(ex);
+		}
+		try {
+			st.executeUpdate(query);
 		} catch (Exception ex) { 
 			descripcion = StringCutter.transformString(( (JSONObject) bibliotecaJSON.get("propietats")).get("content").toString(), "'");
 			descripcion = StringCutter.transformString(descripcion, '"');
@@ -133,6 +152,8 @@ public class Catalunya {
 					+localidad_nombre +"', '" +localidad_codigo +"', '" +provincia_nombre +"', '" +provincia_codigo +"')";
 		st.executeUpdate(query);
 		}
+		
+		System.out.println("Fin");
 		
 	}
 	

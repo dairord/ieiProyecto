@@ -10,7 +10,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import conexiones.*;
 
-
 public class Valencia {
 
 	public static int j = 1;
@@ -117,16 +116,35 @@ public class Valencia {
 
 		j++;
 		
-		String query = "INSERT INTO bibliotecas (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, descripcion, localidad_nombre, localidad_codigo, provincia_nombre, provincia_codigo)"
-				+ " VALUES ('" + nombre + "', '" + tipo + "', '" + direccion + "', '" + codigoPostal + "', '" + longitud
-				+ "', '" + latitud + "', '" + telefono + "', '" + email + "', '" + descripcion + "', '"
-				+ localidad_nombre + "', '" + localidad_codigo + "', '" + provincia_nombre + "', '" + provincia_codigo
-				+ "')";
-
-
+		String query = "INSERT INTO bibliotecas (nombre, tipo, direccion, codigoPostal, longitud, latitud, telefono, email, descripcion, localidad_codigo, provincia_codigo)"
+				+ " VALUES ('"+nombre +"', '" +tipo +"', '" +direccion +"', '" +codigoPostal +"', '" +longitud +"', '" +latitud +"', '" +telefono +"', '" +email +"', '" +descripcion +"', '"
+				 +localidad_codigo +"', '" +provincia_codigo +"')";
+		
+		String queryLocalidades = "INSERT INTO localidades (localidad_nombre, localidad_codigo)"
+				+ " VALUES ('"+localidad_nombre +"', '" +localidad_codigo +"')";
+		
+		String queryProvincias = "INSERT INTO provincias (provincia_nombre, provincia_codigo)"
+				+ " VALUES ('"+provincia_nombre +"', '" +provincia_codigo +"')";
+		
+		
 		Statement st = con.createStatement();
-
-		st.executeUpdate(query);
+		try {
+			st.executeUpdate(queryLocalidades);
+		}catch(Exception ex) {
+			System.out.println(ex);
+		}
+		
+		try {
+			st.executeUpdate(queryProvincias);
+		}catch(Exception ex) {
+			System.out.println(ex);
+		}
+		
+		try {
+			st.executeUpdate(query);
+		}catch(Exception ex) {
+			System.out.println(ex);
+		}
 
 	}
 
